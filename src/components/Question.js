@@ -5,16 +5,18 @@ function Question({ question, onAnswered }) {
 
   // add useEffect code
   useEffect(() => {
-    setTimeout(() => {
-      setTimeRemaining(timeRemaining - 1)}, 1000);
+    const countDown = setTimeout(() => {
+      setTimeRemaining(timeRemaining - 1)
+    }, 500);
 
-      
-      return function cleanup() {
-        if(timeRemaining === 0){
-        setTimeRemaining(10)
-      }
 
-    }})
+    return function cleanup() {
+      clearInterval(countDown)
+      if(timeRemaining === 0){
+      setTimeRemaining(10)
+      onAnswered(false)
+    }}
+  })
 
 
   function handleAnswer(isCorrect) {
