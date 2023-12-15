@@ -7,15 +7,17 @@ function Question({ question, onAnswered }) {
   useEffect(() => {
     const countDown = setTimeout(() => {
       setTimeRemaining(timeRemaining - 1)
-    }, 500);
+    }, 1000);
 
-
-    return function cleanup() {
-      clearInterval(countDown)
-      if(timeRemaining === 0){
+    if (timeRemaining === 0) {
       setTimeRemaining(10)
       onAnswered(false)
-    }}
+
+    }
+
+    return function cleanup() {
+      clearTimeout(countDown)
+    }
   })
 
 
